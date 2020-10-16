@@ -1,0 +1,69 @@
+\section{Introduction}
+%% Accounting for systematic uncertainties on hierarchically modelled stellar properties using Gaussian processes
+%% Introduction
+
+%% Motivation - Accounting for systematic uncertainties in our NN/HBM models, supporting Guy's & Alex's results, but with extensible framework to encompass other work
+%% What's the point of the paper? What am I/are we discussing here...
+%% "All models are wrong, but some are useful"
+While we can name each of the physical phenomena at play which contribute to the properties and behavior of stars in general, it remains that observing and calculating the specific properties and their contributions for any given star is not so simple.
+The nature of these massive dynamic systems is that when it comes to describing them in detail we quickly run up against the limits of our computational abilities.
+Numerical estimations of stellar properties are therefore by necessity always lacking in some detail - and often in many.
+But even when the precise details of a model are fuzzy, our estimations of the underlying physics of a star still provide an important foundation for astronomy.
+
+%% Context - 
+%% Models of stellar structure and evolution are ubiquitous in astronomy.
+We rely on models to detail the relationships between observations and stellar properties.
+Even where high precision spectroscopic or photometric data exists for a particular star, we expect models to produce estimates for age with errors(uncertainties?) of more than 10\%.
+%% ...and why is it important?
+%% (statement) 
+Accurate stellar properties are essential for determining everything from the structure and evolution of our galaxy to the possibility of water or biological markers on distant exoplanets.
+%% galactic archeology/exoplanet requirements of stellar properties - AGE, activity, composition, distribution etc.
+
+%% (statement) 
+Models provide a reasonable approximation of reality, but lack some details.
+%% (example) [MESA] models (for certain stars/populations/samples) lack 3D physics, convection, magnetic fields, etc.
+%% (statement) 
+Different models of similar populations produce different derived properties.
+% When we model stars we always have biases on the results, but we don't have a strong idea of a functional relation to describe this
+%% (statement) 
+Increasing detail in grids of models is computationally expensive.
+%% (example) maybe something like K2 samples, where models are computed for _specific_ subsets of _specific_ types of stars
+% We account for this lack of detail largely by accepting uncertainties are large for certain properties (esp. age)
+
+The complexity of these modelling methods has motivated the implementation of different computational techniques to produce data driven models to predict rather than calculate stellar parameters.
+%% (example) [Green et al 2020] and of course [Davies et al 2020] and [Lyttle et al 2020]
+% but how do we trust that we are 'learning' the right properties/relationships/etc?
+%% Only data can tell us what is "reality" (to within uncertainty); "really precisely very far from the truth" 
+% It is important to understand how we can tend towards being "wrong" by modelling and approximating
+
+%% New techniques (like NNs - Alex's work) to reduce the computation time/complexity without losing confidence 
+%% how do we ask the data to tell us how closely our models represent reality?
+% We currently underestimate the intrinsic uncertainty in our models anyway, as these estimates tend to be based more on perspective than data.
+% Where comparisons exist between pipelines we learn only about the differences in those perspesctives
+%% (example) Red Giants paper [2020] from Arhus comparing pipelines; [Moedas 2020] comparing systematics from initial helium abundance;
+Ongoing work on models is important, since better models will help to decrease the underlying bias and uncertainties
+In this work we will focus on a statistical approach to making our current models more accurate
+
+
+%% Context - What's a GP? 
+%% MATHEMAGICS 
+%% likely to be the most technical bit - overview here and extended discussion in Methods?
+% Priors - our expectations based on physics (like age won't be negative or more than the age of the universe)
+% Posteriors - our baseline for 'truth'
+% Kernel functions - how smooth do we expect the relationship to be?
+% 
+% [Rasmussen & Williams 2006]
+
+%% Context - Why is it reasonable to expect that the results I am trying to convey answer the above?
+The GP learns from the data itself and makes a decision on likely functional forms for the 'true' uncertainty based on the data, and independent of our perspectives as researchers.
+% "Marginalizes over all functional forms & uncertainty too"
+% The GP not only accounts for the uncertainty introduced by the neural network model [Lyttle 2020] but also the intrinsic uncertainty in the underlying stellar models we train on simultaneously.
+The functional form of the uncertainties is unlikely to be linear.
+The power of the GP is that it does not require any knowledge of the number of parameters.
+Using priors to constrain the domain and the smoothness of the result we expect based on our knowledge of the physics produces the set of all possible valid solutions.
+% and a mean function that represents our expected value/relationship
+% starting with a focus on specific parameters (and specific types of stars, given the models/sample - see Alex's sample of Kepler dwarfs and subgiants)
+%% (example) [Chua et al 2020 - 2 Fast 2 Fiducial]
+%% (example) [Aksulu et al 2020 - GRB afterglows]
+
+Accounting for systematics will lead to larger uncertainties, but better and more accurate approximations of the physics.
